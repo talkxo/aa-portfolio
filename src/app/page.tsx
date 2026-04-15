@@ -79,7 +79,7 @@ export default function Page() {
       </nav>
 
       {/* ── HERO ── */}
-      <section className="wrap" style={{ paddingTop: 8, paddingBottom: 0 }}>
+      <section className="wrap" style={{ paddingTop: 80, paddingBottom: 0 }}>
         <div className="hero-inner">
           <div>
             <motion.p initial={{opacity:0}} animate={{opacity:1}} className="eyebrow">
@@ -97,20 +97,13 @@ export default function Page() {
               <span className="emoji">✨</span>
             </motion.h1>
 
-            <motion.p
+            <motion.div
               initial={{opacity:0,y:12}}
               animate={{opacity:1,y:0}}
               transition={{duration:.6,delay:.15}}
               className="hero-bio"
-            >
-              Hi, I&apos;m Aradhya! I&apos;m a 9-year-old child actor and model based in Gurgaon.
-              I made my debut in 2018 at the age of two with the short film
-              &ldquo;Child Alone&rdquo; by Aaj Tak. Since then, I have starred in
-              Netflix&apos;s <strong>Kaala Paani</strong>, Sony Liv&apos;s <strong>Potluck</strong> and
-              <strong> The Good Bad Girl</strong>. I&apos;ve also been the face of 20+ iconic brand
-              campaigns including P&amp;G, Cadbury, Tanishq, and the Jio Home
-              campaign alongside IPL cricketers.
-            </motion.p>
+              dangerouslySetInnerHTML={{ __html: profileData.bio }}
+            />
 
             <motion.div
               initial={{opacity:0,y:12}}
@@ -164,60 +157,73 @@ export default function Page() {
             <h2 className="section-h2">Selected Works</h2>
           </div>
           <div className="tab-group">
-            <button className={`tab-pill ${activeTab==="film"?"active":""}`} onClick={()=>handleTabClick("film")}>Films &amp; Series</button>
-            <button className={`tab-pill ${activeTab==="commercials"?"active":""}`} onClick={()=>handleTabClick("commercials")}>Commercials</button>
+            <button className={`tab-pill ${activeTab==="film"?"active":""}`} onClick={()=>handleTabClick("film")}>
+              {activeTab === "film" && (
+                <motion.span layoutId="tab-bubble" className="tab-bubble" transition={{ type: "spring", bounce: 0.15, duration: 0.5 }} />
+              )}
+              <span className="tab-label">Films &amp; Series</span>
+            </button>
+            <button className={`tab-pill ${activeTab==="commercials"?"active":""}`} onClick={()=>handleTabClick("commercials")}>
+              {activeTab === "commercials" && (
+                <motion.span layoutId="tab-bubble" className="tab-bubble" transition={{ type: "spring", bounce: 0.15, duration: 0.5 }} />
+              )}
+              <span className="tab-label">Commercials</span>
+            </button>
           </div>
         </div>
 
         <AnimatePresence mode="wait">
           {activeTab === "film" && (
             <motion.div key="film" initial={{opacity:0,y:12}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-12}} transition={{duration:.35}}>
-              <div className="bento">
+              <div className="bento-split">
                 {/* Kaala Paani — hero card with real poster */}
                 <div className="bento-hero">
                   <Image src={kaalaPaani.poster!} alt="Kaala Paani" fill priority />
                   <div className="bento-hero-overlay" />
                   <div className="bento-hero-content">
                     <p style={{color:"rgba(255,255,255,.6)",fontSize:".68rem",fontWeight:800,letterSpacing:".15em",textTransform:"uppercase",marginBottom:10}}>
-                      Netflix · Series · Featured Role
+                      {kaalaPaani.platform} · {kaalaPaani.type}
                     </p>
-                    <h3 style={{fontFamily:"var(--font-display)",fontSize:"2.4rem",fontWeight:700,lineHeight:1,marginBottom:6}}>
-                      Kaala Paani
+                    <h3 style={{fontFamily:"var(--font-display)",fontSize:"2.6rem",fontWeight:700,lineHeight:1,marginBottom:16}}>
+                      {kaalaPaani.title}
                     </h3>
-                    <p style={{color:"rgba(255,255,255,.65)",marginBottom:20,fontSize:".85rem"}}>
-                      Released November 18, 2023
-                    </p>
                     <div style={{display:"flex",gap:10,alignItems:"center"}}>
                       <a href={kaalaPaani.videoUrl} target="_blank" rel="noreferrer" className="btn btn-trailer-text" style={{color:"#fff"}}>
                         <IcoPlay /> Watch Trailer
                       </a>
-                      <a href={kaalaPaani.imdb} target="_blank" rel="noreferrer" className="btn btn-imdb-outline" style={{borderColor:"rgba(245,197,24,.6)",color:"#F5C518"}}>
-                        <IcoStar /> IMDB
-                      </a>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Other cards — Option B soft blush background */}
-                {others.map(p => (
-                  <div key={p.id} className="bento-card">
-                    <p className="bento-platform">{p.platform}</p>
-                    <h4 className="bento-title">{p.title}</h4>
-                    <p className="bento-type">{p.type}</p>
-                    <div className="bento-actions">
-                      {p.videoUrl && (
-                        <a href={p.videoUrl} target="_blank" rel="noreferrer" className="btn btn-trailer-text" style={{color:"#CC0000"}}>
-                          <IcoPlay /> Trailer
-                        </a>
-                      )}
-                      {p.imdb && (
-                        <a href={p.imdb} target="_blank" rel="noreferrer" className="btn btn-imdb-outline">
+                      {kaalaPaani.imdb && (
+                        <a href={kaalaPaani.imdb} target="_blank" rel="noreferrer" className="btn btn-imdb-outline" style={{borderColor:"rgba(245,197,24,.6)",color:"#F5C518"}}>
                           <IcoStar /> IMDB
                         </a>
                       )}
                     </div>
                   </div>
-                ))}
+                </div>
+
+                {/* Other cards as a clean sideways list */}
+                <div className="bento-list">
+                  {others.map(p => (
+                    <div key={p.id} className="bento-list-item">
+                      <div className="bento-list-info">
+                        <p className="bento-platform" style={{color:"var(--rose)", marginBottom:2}}>{p.platform}</p>
+                        <h4 style={{fontFamily:"var(--font-display)", fontSize:"1.6rem", fontWeight:700}}>{p.title}</h4>
+                        <p style={{color:"var(--ink-2)", fontSize:".85rem"}}>{p.type}</p>
+                      </div>
+                      <div className="bento-list-actions">
+                        {p.videoUrl && (
+                          <a href={p.videoUrl} target="_blank" rel="noreferrer" className="btn btn-trailer-text">
+                            <IcoPlay /> Trailer
+                          </a>
+                        )}
+                        {p.imdb && (
+                          <a href={p.imdb} target="_blank" rel="noreferrer" className="btn btn-imdb-outline">
+                            <IcoStar /> IMDB
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </motion.div>
           )}
