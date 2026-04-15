@@ -353,11 +353,55 @@ export default function PlayMode() {
         {/* Joystick wrapper */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, opacity: 0.8 }}>
           <div />
-          <button onPointerDown={()=>setKeys(k=>({...k, w: true}))} onPointerUp={()=>setKeys(k=>({...k, w: false}))} style={{ width: 50, height: 50, borderRadius: "50%", border: "none", background: "#fff", display: "flex", alignItems:"center", justifyContent:"center" }}>W</button>
+          <button 
+            onPointerDown={()=>setKeys(k=>({...k, w: true}))} 
+            onPointerUp={()=>setKeys(k=>({...k, w: false}))} 
+            onPointerLeave={()=>setKeys(k=>({...k, w: false}))}
+            style={{ 
+              width: 50, height: 50, borderRadius: "50%", border: "none", background: "#fff", 
+              display: "flex", alignItems:"center", justifyContent:"center",
+              userSelect: "none", WebkitUserSelect: "none", touchAction: "none", WebkitTapHighlightColor: "transparent"
+            }}
+          >
+            ↑
+          </button>
           <div />
-          <button onPointerDown={()=>setKeys(k=>({...k, a: true}))} onPointerUp={()=>setKeys(k=>({...k, a: false}))} style={{ width: 50, height: 50, borderRadius: "50%", border: "none", background: "#fff", display: "flex", alignItems:"center", justifyContent:"center" }}>A</button>
-          <button onPointerDown={()=>setKeys(k=>({...k, s: true}))} onPointerUp={()=>setKeys(k=>({...k, s: false}))} style={{ width: 50, height: 50, borderRadius: "50%", border: "none", background: "#fff", display: "flex", alignItems:"center", justifyContent:"center" }}>S</button>
-          <button onPointerDown={()=>setKeys(k=>({...k, d: true}))} onPointerUp={()=>setKeys(k=>({...k, d: false}))} style={{ width: 50, height: 50, borderRadius: "50%", border: "none", background: "#fff", display: "flex", alignItems:"center", justifyContent:"center" }}>D</button>
+          <button 
+            onPointerDown={()=>setKeys(k=>({...k, a: true}))} 
+            onPointerUp={()=>setKeys(k=>({...k, a: false}))} 
+            onPointerLeave={()=>setKeys(k=>({...k, a: false}))}
+            style={{ 
+              width: 50, height: 50, borderRadius: "50%", border: "none", background: "#fff", 
+              display: "flex", alignItems:"center", justifyContent:"center",
+              userSelect: "none", WebkitUserSelect: "none", touchAction: "none", WebkitTapHighlightColor: "transparent"
+            }}
+          >
+            ←
+          </button>
+          <button 
+            onPointerDown={()=>setKeys(k=>({...k, s: true}))} 
+            onPointerUp={()=>setKeys(k=>({...k, s: false}))} 
+            onPointerLeave={()=>setKeys(k=>({...k, s: false}))}
+            style={{ 
+              width: 50, height: 50, borderRadius: "50%", border: "none", background: "#fff", 
+              display: "flex", alignItems:"center", justifyContent:"center",
+              userSelect: "none", WebkitUserSelect: "none", touchAction: "none", WebkitTapHighlightColor: "transparent"
+            }}
+          >
+            ↓
+          </button>
+          <button 
+            onPointerDown={()=>setKeys(k=>({...k, d: true}))} 
+            onPointerUp={()=>setKeys(k=>({...k, d: false}))} 
+            onPointerLeave={()=>setKeys(k=>({...k, d: false}))}
+            style={{ 
+              width: 50, height: 50, borderRadius: "50%", border: "none", background: "#fff", 
+              display: "flex", alignItems:"center", justifyContent:"center",
+              userSelect: "none", WebkitUserSelect: "none", touchAction: "none", WebkitTapHighlightColor: "transparent"
+            }}
+          >
+            →
+          </button>
         </div>
       </div>
 
