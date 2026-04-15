@@ -15,6 +15,8 @@ const IcoStar  = () => <svg width="13" height="13" viewBox="0 0 24 24" fill="cur
 const IcoIG    = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>;
 const IcoCheck = () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>;
 const IcoFilm  = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/><line x1="17" y1="17" x2="22" y2="17"/></svg>;
+const IcoSwipeLeft = () => <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>;
+const IcoSwipeRight = () => <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>;
 
 export default function Page() {
   const [activeTab,   setActiveTab]   = useState<"film"|"commercials">("film");
@@ -250,6 +252,9 @@ export default function Page() {
                   </button>
                 ))}
               </div>
+              <div className="scroll-hint md-hidden">
+                <IcoSwipeLeft /> <span>Swipe</span> <IcoSwipeRight />
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -274,12 +279,13 @@ export default function Page() {
               </div>
             ))}
           </div>
+          <div className="scroll-hint md-hidden" style={{marginTop: 12}}>
+            <IcoSwipeLeft /> <span>Swipe</span> <IcoSwipeRight />
+          </div>
         </div>
       </section>
 
-      <footer className="footer">
-        © {new Date().getFullYear()} Aradhya Aanjna · All rights reserved.
-      </footer>
+
 
       {/* ── Intro Video Modal ── */}
       <AnimatePresence>

@@ -508,3 +508,20 @@ img { display: block; max-width: 100%; }
   color: var(--ink-2);
   border-top: 1px solid rgba(28,16,24,.07);
 }
+
+/* ─── Helpers ────────────────────────────────────────────────── */
+.scroll-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--ink-2);
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+}
+@media (min-width: 900px) {
+  .md-hidden { display: none !important; }
+}
