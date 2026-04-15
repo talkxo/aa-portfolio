@@ -113,8 +113,8 @@ img { display: block; max-width: 100%; }
 }
 
 /* ─── Sections ───────────────────────────────────────────────── */
-.section { padding: 72px 0; }
-.section-sm { padding: 48px 0; }
+.section { padding-top: 72px; padding-bottom: 72px; }
+.section-sm { padding-top: 48px; padding-bottom: 48px; }
 
 .eyebrow {
   display: inline-block;
