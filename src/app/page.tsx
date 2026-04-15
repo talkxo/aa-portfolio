@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import dynamic from "next/dynamic";
 import confetti from "canvas-confetti";
 import { profileData, commercials, tvAndFilms, instagramReels, introVideo } from "@/data/portfolio";
@@ -116,7 +117,9 @@ export default function Page() {
               <button className="btn btn-rose" onClick={() => setShowIntro(true)}>
                 <IcoFilm /> Watch Introduction
               </button>
-              <a href="#featured-work" className="btn btn-ghost">Explore work ↓</a>
+              <Link href="/play" className="btn btn-ghost" style={{ background: "#7EB67C", color: "#fff", border: "1px solid #61955F", fontWeight: 800 }}>
+                🎮 Enter Play Mode
+              </Link>
             </motion.div>
 
             <motion.div
