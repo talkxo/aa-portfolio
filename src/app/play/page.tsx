@@ -218,8 +218,17 @@ export default function PlayMode() {
   const viewportX = typeof window !== "undefined" ? window.innerWidth / 2 : 500;
   const viewportY = typeof window !== "undefined" ? window.innerHeight / 2 : 500;
 
+  // Clue Logic: Find nearest location to point towards
+  const nearest = LOCATIONS.reduce((prev, curr) => {
+    const distP = Math.hypot(prev.x - posRef.current.x, prev.y - posRef.current.y);
+    const distC = Math.hypot(curr.x - posRef.current.x, curr.y - posRef.current.y);
+    return distC < distP ? curr : prev;
+  });
+  const distToNearest = Math.hypot(nearest.x - posRef.current.x, nearest.y - posRef.current.y);
+  const angleToNearest = Math.atan2(nearest.y - posRef.current.y, nearest.x - posRef.current.x) * (180 / Math.PI);
+
   return (
-    <div style={{ width: "100vw", height: "100vh", overflow: "hidden", background: "#7EB67C", position: "relative" }}>
+    <div style={{ width: "100vw", height: "100dvh", overflow: "hidden", background: "#7EB67C", position: "relative" }}>
       
       {/* ── UI OVERLAY ── */}
       <div style={{ position: "absolute", top: 20, left: 20, zIndex: 100, display: "flex", gap: 12 }}>
@@ -230,8 +239,24 @@ export default function PlayMode() {
           <span>🪙</span> {coins}
         </div>
       </div>
-      <div style={{ position: "absolute", bottom: 20, right: 20, zIndex: 100, background: "rgba(0,0,0,.5)", color: "#fff", padding: "8px 12px", borderRadius: 8, fontSize: ".8rem", fontWeight: 700 }}>
-        Use W A S D or Arrow Keys
+      <div style={{ position: "absolute", bottom: 20, right: 20, zIndex: 100, display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 12 }}>
+        {/* Clue Indicator */}
+        {distToNearest > 300 && (
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            style={{ 
+              background: "#fff", padding: "10px 14px", borderRadius: 20, boxShadow: "0 8px 24px rgba(0,0,0,.2)",
+              display: "flex", alignItems: "center", gap: 10, fontSize: ".75rem", fontWeight: 800, color: "var(--ink)"
+            }}
+          >
+            <span>FIND {nearest.title.toUpperCase()}</span>
+            <div style={{ transform: `rotate(${angleToNearest}deg)`, fontSize: "1.2rem", display: "inline-block" }}>➔</div>
+          </motion.div>
+        )}
+        <div style={{ background: "rgba(0,0,0,.5)", color: "#fff", padding: "8px 12px", borderRadius: 8, fontSize: ".8rem", fontWeight: 700 }}>
+          Use W A S D or Arrow Keys
+        </div>
       </div>
 
       {/* ── THE WORLD MAP ── */}
@@ -329,22 +354,25 @@ export default function PlayMode() {
         }}
       >
         <motion.div
-           animate={{
-             y: isWalking ? [0, -10, 0] : 0,
-             rotate: isWalking ? [0, 5, -5, 0] : 0,
-             scaleX: facing === "left" ? -1 : 1
+           animate={isWalking ? {
+             y: [0, -12, 0],
+             rotate: [0, 6, -6, 0],
+           } : {
+             y: 0,
+             rotate: 0,
            }}
            transition={{
              repeat: Infinity,
-             duration: 0.35,
+             duration: 0.3,
+             ease: "easeInOut"
            }}
            style={{
-             fontSize: "4rem", 
-             filter: "drop-shadow(0 10px 10px rgba(0,0,0,.3))"
+             fontSize: "4.2rem", 
+             filter: "drop-shadow(0 12px 12px rgba(0,0,0,.3))",
+             scaleX: facing === "left" ? -1 : 1
            }}
         >
-          {facing === "up" ? "👧🏻" : "👧🏻"} 
-          {/* We use a simple emoji character for now! A sprite sheet can be plugged in perfectly here by replacing this div with a background-image div. */}
+          👧🏻
         </motion.div>
       </div>
 
