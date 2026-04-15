@@ -117,9 +117,7 @@ export default function Page() {
               <button className="btn btn-rose" onClick={() => setShowIntro(true)}>
                 <IcoFilm /> Watch Introduction
               </button>
-              <Link href="/play" className="btn btn-ghost" style={{ background: "#7EB67C", color: "#fff", border: "1px solid #61955F", fontWeight: 800 }}>
-                🎮 Enter Play Mode
-              </Link>
+              <a href="#featured-work" className="btn btn-ghost">Explore work ↓</a>
             </motion.div>
 
             <motion.div
